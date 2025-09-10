@@ -1,25 +1,30 @@
 plugins {
     id("java")
+    id("org.springframework.boot") version "3.5.5" apply false
+    id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
-group = "com.epam.learn"
-version = "1.0-SNAPSHOT"
+allprojects {
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    group = "com.epam.learn"
+    version = "1.0-SNAPSHOT"
+
+    repositories {
+        mavenCentral()
+    }
 }
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply(plugin = "java")
+    apply(plugin = "org.springframework.boot")
+    apply(plugin = "io.spring.dependency-management")
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
-tasks.test {
-    useJUnitPlatform()
+    tasks.test {
+        useJUnitPlatform()
+    }
 }
