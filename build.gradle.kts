@@ -15,16 +15,8 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "java")
-    apply(plugin = "org.springframework.boot")
-    apply(plugin = "io.spring.dependency-management")
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    tasks.test {
-        useJUnitPlatform()
+    tasks.withType<JavaCompile>().configureEach {
+        options.release = 21
     }
 }
