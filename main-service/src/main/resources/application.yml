@@ -1,0 +1,41 @@
+server:
+  compression:
+    enabled: true
+  error.whitelabel.enabled: false
+  port: 8080
+
+spring:
+  application:
+    name: main-service
+  datasource:
+    hikari:
+      auto-commit: false
+      minimum-idle: 0
+      maximum-pool-size: 40
+      idle-timeout: 200_000
+      max-lifetime: 600_000
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl.auto: none
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 15
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+        query:
+          fail_on_pagination_over_collection_fetch: true
+          in_clause_parameter_padding: true
+          plan_cache_max_size: 2048
+        connection:
+          provider_disables_autocommit: true
+      defer-datasource-initialization: false
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+  threads:
+    virtual:
+      enabled: true

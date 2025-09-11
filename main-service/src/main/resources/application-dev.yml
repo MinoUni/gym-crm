@@ -1,0 +1,15 @@
+logging:
+  level:
+    root: INFO
+    web: INFO
+    net.ttddyy.dsproxy.listener: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gymcrmDb
+    username: postgres
+    password: ${DB_PASSWORD}

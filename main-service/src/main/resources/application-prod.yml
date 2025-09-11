@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    web: INFO
+    net.ttddyy.dsproxy.listener: INFO
+
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
