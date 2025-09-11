@@ -13,3 +13,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/gymcrmDb
     username: postgres
     password: ${DB_PASSWORD}
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://mock-issuer
+          jwk-set-uri: http://mock-issuer/.well-known/jwks.json
