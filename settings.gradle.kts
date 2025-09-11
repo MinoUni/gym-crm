@@ -1,4 +1,3 @@
 rootProject.name = "gym-crm"
 
-include("training-session-service")
-include("main-service")
+include("training-session-service", "main-service", "gateway")

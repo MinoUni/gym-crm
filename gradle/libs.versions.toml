@@ -7,8 +7,10 @@ springSecurityTest = "6.5.3"
 springBoot = "3.5.5"
 spring = "6.2.10"
 apacheCommonsLang3 = "3.18.0"
+springCloud = "2025.0.0"
 
 [libraries]
+springCloudStarterEurekaClient = { group = "org.springframework.cloud", name = "spring-cloud-starter-netflix-eureka-client" }
 springBootStarterWeb = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
 springBootStarterDataJpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa", version.ref = "springBoot" }
 springBootStarterValidation = { group = "org.springframework.boot", name = "spring-boot-starter-validation", version.ref = "springBoot" }
