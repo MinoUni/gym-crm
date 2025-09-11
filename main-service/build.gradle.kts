@@ -45,7 +45,7 @@ tasks.test {
 }
 
 tasks.bootRun {
-    val envVars = loadEnvVars(file("$projectDir/.env"))
+    val envVars = loadEnvVars(file("${rootProject.projectDir}/.env"))
     if (envVars.isEmpty()) {
         throw GradleException(".env file is missing or empty")
     }
