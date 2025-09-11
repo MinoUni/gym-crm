@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/db.changelog-1.0.0-init-schema.sql
+  - include:
+      file: db/changelog/changeset/2025-07-11__add-sample-data.sql
+  - include:
+      file: db/changelog/changeset/2025-07-13__update-trainings-table.sql
