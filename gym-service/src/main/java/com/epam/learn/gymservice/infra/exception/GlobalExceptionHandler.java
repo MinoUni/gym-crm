@@ -2,6 +2,7 @@ package com.epam.learn.gymservice.infra.exception;
 
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -53,5 +54,11 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EntityNotFoundException.class)
   public ApiErrorResponse handleEntityNotFoundException(EntityNotFoundException e) {
     return new ApiErrorResponse(HttpStatus.NOT_FOUND, EntityNotFoundException.CODE, e.getMessage());
+  }
+
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ExceptionHandler(BadCredentialsException.class)
+  public ApiErrorResponse handleBadCredentialsExceptionException(BadCredentialsException e) {
+    return new ApiErrorResponse(HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS", e.getMessage());
   }
 }

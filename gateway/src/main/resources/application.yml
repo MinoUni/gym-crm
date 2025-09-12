@@ -1,6 +1,13 @@
 server:
   port: 8080
 
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+
 spring:
   application:
     name: api-gateway
@@ -10,22 +17,16 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: main-service
-          uri: http://localhost:8081
-          predicates:
-            - path=/api/**
-          filters:
-            - strip-prefix=1
-        - id: training-session-service
-          uri: http://localhost:8082
-          predicates:
-            - path=/api/**
-          filters:
-            - strip-prefix=1
-  security:
-    oauth2:
-      resource-server:
-        jwt:
-          issuer-uri: http://mock-issuer
-          jwk-set-uri: http://mock-issuer/.well-known/jwks.json
+      server:
+        webmvc:
+          routes:
+          - id: gym-service
+            uri: lb://gym-service
+            predicates:
+            - Path=/gym/**
+            filters:
+            - stripPrefix=1
+          - id: training-session-service
+            uri: http://localhost:8082
+            predicates:
+            - Path=/tr_session/**
