@@ -13,9 +13,12 @@ configurations {
 
 val mockitoAgent = configurations.create("mockitoAgent")
 
+extra["springCloudVersion"] = libs.versions.springCloud.get()
+
 dependencies {
     mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 
+    implementation(libs.springCloudStarterEurekaClient)
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterDataJpa)
     implementation(libs.springBootStarterValidation)
@@ -36,6 +39,12 @@ dependencies {
     testImplementation(libs.springSecurityTest)
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 tasks.test {
