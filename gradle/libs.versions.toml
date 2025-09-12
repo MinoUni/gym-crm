@@ -8,6 +8,7 @@ springBoot = "3.5.5"
 spring = "6.2.10"
 apacheCommonsLang3 = "3.18.0"
 springCloud = "2025.0.0"
+jjwt = "0.13.0"
 
 [libraries]
 springCloudStarterEurekaClient = { group = "org.springframework.cloud", name = "spring-cloud-starter-netflix-eureka-client" }

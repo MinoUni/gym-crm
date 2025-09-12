@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: main-service
+    name: gym-service
   datasource:
     hikari:
       auto-commit: false
@@ -17,11 +17,11 @@ spring:
     driver-class-name: org.postgresql.Driver
   eureka:
     client:
-      service-url:
+      serviceUrl:
         defaultZone: http://localhost:8761/eureka/
   jpa:
     hibernate:
-      ddl.auto: none
+      ddl-auto: validate
     open-in-view: false
     show-sql: false
     properties:
