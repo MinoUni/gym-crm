@@ -61,4 +61,10 @@ public class GlobalExceptionHandler {
   public ApiErrorResponse handleBadCredentialsExceptionException(BadCredentialsException e) {
     return new ApiErrorResponse(HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS", e.getMessage());
   }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(SamePasswordException.class)
+  public ApiErrorResponse handleSamePasswordException(SamePasswordException e) {
+    return new ApiErrorResponse(HttpStatus.BAD_REQUEST, "PASSWORD_REUSE", e.getMessage());
+  }
 }

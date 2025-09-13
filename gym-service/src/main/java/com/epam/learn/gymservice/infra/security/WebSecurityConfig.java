@@ -40,7 +40,7 @@ public class WebSecurityConfig {
   }
 
   @Bean
-  @Profile("dev")
+  @Profile({"dev", "test"})
   public JwtDecoder jwtDecoder(JwtProvider jwtProvider) {
     return NimbusJwtDecoder.withSecretKey(jwtProvider.getKey()).build();
   }

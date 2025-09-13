@@ -1,0 +1,23 @@
+jwt:
+  secret-key: 5a4d7f5bc3f7226e014c2ce8c9d3c01cd8c1d11def2022c3399a8e3cd642f047
+  lifetime: 5 # in minutes
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        connection:
+          provider_disables_autocommit: false
+      defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: false

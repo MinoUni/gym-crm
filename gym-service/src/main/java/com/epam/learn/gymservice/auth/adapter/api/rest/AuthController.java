@@ -2,8 +2,8 @@ package com.epam.learn.gymservice.auth.adapter.api.rest;
 
 import com.epam.learn.gymservice.auth.adapter.api.rest.dto.AuthCredentials;
 import com.epam.learn.gymservice.auth.adapter.api.rest.dto.ChangeLoginRequest;
-import com.epam.learn.gymservice.auth.application.usecase.AuthenticateUserUseCase;
-import com.epam.learn.gymservice.auth.application.usecase.UserPasswordUpdateUseCase;
+import com.epam.learn.gymservice.auth.application.usecase.AuthenticateUser;
+import com.epam.learn.gymservice.auth.application.usecase.UserPasswordUpdate;
 import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class AuthController {
 
-  private final AuthenticateUserUseCase authenticateUserUseCase;
-  private final UserPasswordUpdateUseCase userPasswordUpdateUseCase;
+  private final AuthenticateUser authenticateUser;
+  private final UserPasswordUpdate userPasswordUpdate;
 
   @PostMapping
   @ResponseStatus(HttpStatus.OK)
   public Map<String, Object> authenticate(@Valid @RequestBody AuthCredentials authentication) {
-    String token = authenticateUserUseCase.execute(authentication);
+    String token = authenticateUser.execute(authentication);
     return Map.of("token", token);
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void changeLogin(@Valid @RequestBody ChangeLoginRequest request) {
-    userPasswordUpdateUseCase.execute(request);
+    userPasswordUpdate.execute(request);
   }
 }

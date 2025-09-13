@@ -30,16 +30,17 @@ dependencies {
     implementation(libs.datasourceProxySpringBootStarter)
     implementation(libs.apacheCommonsLang3)
     implementation("org.liquibase:liquibase-core")
-    implementation("org.postgresql:postgresql")
     implementation(libs.mapstruct)
     implementation("io.jsonwebtoken:jjwt-api:${jjwtVersion}")
 
+    runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jjwtVersion}")
 
     annotationProcessor(libs.mapstructProcessor)
     annotationProcessor(libs.lombokMapstructBinding)
 
+    testImplementation("com.h2database:h2")
     testImplementation(libs.springBootStarterTest)
     testImplementation(libs.springSecurityTest)
 

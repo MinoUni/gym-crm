@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @DomainService
 @Transactional
 @AllArgsConstructor
-public class UserPasswordUpdateUseCase {
+public class UserPasswordUpdate {
 
   private final UserRepository repository;
   private final PasswordEncoder passwordEncoder;

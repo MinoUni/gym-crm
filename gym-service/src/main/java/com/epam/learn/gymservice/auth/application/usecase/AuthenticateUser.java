@@ -15,7 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @DomainService
 @AllArgsConstructor
-public class AuthenticateUserUseCase {
+public class AuthenticateUser {
 
   private final JwtProvider jwtProvider;
   private final AuthenticationManager authenticationManager;
