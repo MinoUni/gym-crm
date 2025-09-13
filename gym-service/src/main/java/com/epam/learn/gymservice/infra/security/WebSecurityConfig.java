@@ -3,6 +3,7 @@ package com.epam.learn.gymservice.infra.security;
 import static org.springframework.http.HttpMethod.POST;
 
 import com.epam.learn.gymservice.infra.security.jwt.JwtProvider;
+import com.epam.learn.gymservice.infra.security.web.JwtAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -24,12 +25,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain securityFilterChain(
+      HttpSecurity http, JwtAuthenticationEntryPoint authEntryPoint) throws Exception {
     return http.formLogin(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+        .oauth2ResourceServer(
+            oauth2 ->
+                oauth2.authenticationEntryPoint(authEntryPoint).jwt(Customizer.withDefaults()))
         .authorizeHttpRequests(
             req ->
                 req.requestMatchers(POST, "/login", "/trainees", "/trainers")

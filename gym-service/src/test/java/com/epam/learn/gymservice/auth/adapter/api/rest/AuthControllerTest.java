@@ -21,6 +21,7 @@ import com.epam.learn.gymservice.auth.application.usecase.UserPasswordUpdate;
 import com.epam.learn.gymservice.infra.exception.SamePasswordException;
 import com.epam.learn.gymservice.infra.security.WebSecurityConfig;
 import com.epam.learn.gymservice.infra.security.jwt.JwtProvider;
+import com.epam.learn.gymservice.infra.security.web.JwtAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(AuthController.class)
-@Import({WebSecurityConfig.class, JwtProvider.class})
+@Import({WebSecurityConfig.class, JwtProvider.class, JwtAuthenticationEntryPoint.class})
 class AuthControllerTest {
 
   @MockitoBean private AuthenticateUser authenticateUser;
