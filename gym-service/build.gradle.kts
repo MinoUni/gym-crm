@@ -20,6 +20,7 @@ dependencies {
     mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 
     implementation(libs.springCloudStarterEurekaClient)
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterDataJpa)
     implementation(libs.springBootStarterValidation)
@@ -40,10 +41,10 @@ dependencies {
     annotationProcessor(libs.mapstructProcessor)
     annotationProcessor(libs.lombokMapstructBinding)
 
-    testImplementation("com.h2database:h2")
     testImplementation(libs.springBootStarterTest)
     testImplementation(libs.springSecurityTest)
 
+    testRuntimeOnly("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

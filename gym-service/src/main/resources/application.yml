@@ -21,7 +21,7 @@ spring:
         defaultZone: http://localhost:8761/eureka/
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     open-in-view: false
     show-sql: false
     properties:
