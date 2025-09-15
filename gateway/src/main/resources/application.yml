@@ -27,6 +27,8 @@ spring:
             filters:
             - stripPrefix=1
           - id: training-session-service
-            uri: http://localhost:8082
+            uri: lb://training-session-service
             predicates:
             - Path=/tr_session/**
+            filters:
+              - stripPrefix=1
