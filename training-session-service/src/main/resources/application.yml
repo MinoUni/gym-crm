@@ -1,0 +1,33 @@
+server:
+  compression:
+    enabled: true
+  error.whitelabel.enabled: false
+  port: 8082
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+logging:
+  level:
+    org.springframework.security: debug
+    web: info
+spring:
+  application:
+    name: training-session-service
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:trSession;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password: sa
+  h2:
+    console:
+      enabled: false
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  threads:
+    virtual:
+      enabled: true
