@@ -14,3 +14,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/gymcrmDb
     username: postgres
     password: ${DB_PASSWORD}
+eureka:
+  client:
+    restclient:
+      enabled: on

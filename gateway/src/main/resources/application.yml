@@ -20,15 +20,19 @@ spring:
       server:
         webmvc:
           routes:
-          - id: gym-service
-            uri: lb://gym-service
-            predicates:
-            - Path=/gym/**
-            filters:
-            - stripPrefix=1
-          - id: training-session-service
-            uri: lb://training-session-service
-            predicates:
-            - Path=/tr_session/**
-            filters:
-              - stripPrefix=1
+            - id: gym-service
+              uri: lb://gym-service
+              predicates:
+                - Path=/gym/**
+              filters:
+                - stripPrefix=1
+            - id: training-session-service
+              uri: lb://training-session-service
+              predicates:
+                - Path=/tr_session/**
+              filters:
+                - stripPrefix=1
+eureka:
+  client:
+    restclient:
+      enabled: true
