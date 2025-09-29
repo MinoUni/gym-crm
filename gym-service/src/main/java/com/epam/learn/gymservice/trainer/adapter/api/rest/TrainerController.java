@@ -1,6 +1,5 @@
 package com.epam.learn.gymservice.trainer.adapter.api.rest;
 
-import com.epam.learn.gymservice.auth.adapter.api.rest.dto.AuthCredentials;
 import com.epam.learn.gymservice.trainer.adapter.api.rest.dto.TrainerCreateRequest;
 import com.epam.learn.gymservice.trainer.adapter.api.rest.dto.TrainerProfileResponse;
 import com.epam.learn.gymservice.trainer.adapter.api.rest.dto.TrainerTrainingResponse;
@@ -62,9 +61,8 @@ public class TrainerController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public AuthCredentials createTrainer(@Valid @RequestBody TrainerCreateRequest request) {
-    Trainer trainer = createTrainer.execute(request);
-    return AuthCredentials.of(trainer.getUser());
+  public void createTrainer(@Valid @RequestBody TrainerCreateRequest request) {
+    createTrainer.execute(request);
   }
 
   @PutMapping("/{username}")

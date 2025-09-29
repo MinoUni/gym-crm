@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public record TraineeCreateRequest(
     @NotBlank String firstName,
     @NotBlank String lastName,
-    @NotBlank String password,
     @Past LocalDate birthDate,
     String address)
     implements UserMappings {}

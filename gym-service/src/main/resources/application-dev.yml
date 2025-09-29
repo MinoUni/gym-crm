@@ -1,11 +1,13 @@
+server:
+  tomcat:
+    threads:
+      max: 20
 logging:
   level:
-    root: INFO
-    web: INFO
-    net.ttddyy.dsproxy.listener: DEBUG
-jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  lifetime: ${JWT_LIFETIME} # in minutes
+    root: info
+    web: info
+    org.springframework.security: info
+    net.ttddyy.dsproxy.listener: info
 spring:
   output:
     ansi:
@@ -14,7 +16,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/gymcrmDb
     username: postgres
     password: ${DB_PASSWORD}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/gymcrm
 eureka:
   client:
+    enabled: on
     restclient:
       enabled: on

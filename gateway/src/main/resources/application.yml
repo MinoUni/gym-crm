@@ -1,12 +1,14 @@
 server:
-  port: 8080
+  port: 8081
 
 logging:
   level:
     root: INFO
-    org.springframework.web: DEBUG
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.cloud.loadbalancer: DEBUG
+
+eureka:
+  client:
+    restclient:
+      enabled: true
 
 spring:
   application:
@@ -32,7 +34,3 @@ spring:
                 - Path=/tr_session/**
               filters:
                 - stripPrefix=1
-eureka:
-  client:
-    restclient:
-      enabled: true
