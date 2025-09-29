@@ -12,31 +12,25 @@ configurations {
 }
 
 val mockitoAgent = configurations.create("mockitoAgent")
-val jjwtVersion = libs.versions.jjwt.get()
 
 extra["springCloudVersion"] = libs.versions.springCloud.get()
 
 dependencies {
     mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 
+    implementation("org.springframework.boot:spring-boot-starter-artemis")
     implementation(libs.springCloudStarterEurekaClient)
-    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterDataJpa)
     implementation(libs.springBootStarterValidation)
     implementation(libs.springBootStarterOauth2ResourceServer)
-    implementation(libs.springAspects)
-    implementation(libs.springAop)
     implementation(libs.hypersistenceUtils)
     implementation(libs.datasourceProxySpringBootStarter)
     implementation(libs.apacheCommonsLang3)
     implementation("org.liquibase:liquibase-core")
     implementation(libs.mapstruct)
-    implementation("io.jsonwebtoken:jjwt-api:${jjwtVersion}")
 
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwtVersion}")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jjwtVersion}")
 
     annotationProcessor(libs.mapstructProcessor)
     annotationProcessor(libs.lombokMapstructBinding)
@@ -73,9 +67,8 @@ fun loadEnvVars(file: File): Map<String, String> {
     if (!file.exists()) {
         return emptyMap()
     }
-    return file.readLines()
-        .filter { it.isNotBlank() && !it.startsWith("#") && it.contains("=") }.associate {
-            val (key, value) = it.split("=", limit = 2)
-            key to value
-        }
+    return file.readLines().filter { it.isNotBlank() && !it.startsWith("#") && it.contains("=") }.associate {
+        val (key, value) = it.split("=", limit = 2)
+        key to value
+    }
 }

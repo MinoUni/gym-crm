@@ -9,6 +9,11 @@ logging:
     org.springframework.security: info
     net.ttddyy.dsproxy.listener: info
 spring:
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    mode: native
   output:
     ansi:
       enabled: ALWAYS

@@ -11,6 +11,7 @@ extra["springCloudVersion"] = libs.versions.springCloud.get()
 dependencies {
     mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 
+    implementation("org.springframework.boot:spring-boot-starter-artemis")
     implementation(libs.springCloudStarterEurekaClient)
     implementation(libs.springBootStarterWeb)
     implementation(libs.springBootStarterDataJpa)

@@ -10,6 +10,11 @@ logging:
     web: info
 
 spring:
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    mode: native
   application:
     name: training-session-service
   datasource:
@@ -25,10 +30,6 @@ spring:
   h2:
     console:
       enabled: false
-  eureka:
-    client:
-      serviceUrl:
-        defaultZone: http://localhost:8761/eureka/
   jpa:
     hibernate:
       ddl-auto: update
