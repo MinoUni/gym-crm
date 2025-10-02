@@ -14,12 +14,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-artemis")
     implementation(libs.springCloudStarterEurekaClient)
     implementation(libs.springBootStarterWeb)
-    implementation(libs.springBootStarterDataJpa)
     implementation(libs.springBootStarterValidation)
     implementation(libs.springBootStarterOauth2ResourceServer)
     implementation(libs.mapstruct)
 
-    runtimeOnly("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     annotationProcessor(libs.mapstructProcessor)
     annotationProcessor(libs.lombokMapstructBinding)

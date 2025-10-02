@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.connection.JmsTransactionManager;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -21,7 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class JmsConfig {
 
   @Bean
-  public ActiveMQConnectionFactory activeMQConnectionFactory(
+  public ActiveMQConnectionFactory connectionFactory(
       @Value("${spring.artemis.broker-url}") String brokerUrl,
       @Value("${spring.artemis.user}") String user,
       @Value("${spring.artemis.password}") String password) {
@@ -30,8 +31,8 @@ public class JmsConfig {
 
   @Bean
   public JmsTemplate jmsTemplate(
-      ActiveMQConnectionFactory activeMQConnectionFactory, MessageConverter messageConverter) {
-    JmsTemplate template = new JmsTemplate(activeMQConnectionFactory);
+      ActiveMQConnectionFactory connectionFactory, MessageConverter messageConverter) {
+    JmsTemplate template = new JmsTemplate(connectionFactory);
     template.setMessageConverter(messageConverter);
     template.setDeliveryPersistent(true);
     template.setSessionTransacted(true);
@@ -40,15 +41,20 @@ public class JmsConfig {
 
   @Bean
   public DefaultJmsListenerContainerFactory myFactory(
-      ActiveMQConnectionFactory activeMQConnectionFactory,
+      ActiveMQConnectionFactory connectionFactory,
       DefaultJmsListenerContainerFactoryConfigurer configurer,
       MessageConverter messageConverter,
       PlatformTransactionManager transactionManager) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-    configurer.configure(factory, activeMQConnectionFactory);
+    configurer.configure(factory, connectionFactory);
     factory.setMessageConverter(messageConverter);
     factory.setTransactionManager(transactionManager);
     return factory;
+  }
+
+  @Bean
+  public PlatformTransactionManager transactionManager(ActiveMQConnectionFactory connectionFactory) {
+      return new JmsTransactionManager(connectionFactory);
   }
 
   @Bean
