@@ -1,11 +1,13 @@
 package com.epam.learn.trsessionservice.domain.repository;
 
 import com.epam.learn.trsessionservice.domain.model.TrainingSession;
-import java.util.List;
+import java.util.Optional;
 
 public interface TrainingSessionRepository {
 
-  List<TrainingSession> findAllByTrainerUsername(String trainerUsername);
+  TrainingSession getByTrainerUsername(String trainerUsername);
+
+  Optional<TrainingSession> findById(Long id);
 
   TrainingSession getById(Long id);
 

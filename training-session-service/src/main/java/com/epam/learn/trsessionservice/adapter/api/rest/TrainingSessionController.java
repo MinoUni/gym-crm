@@ -23,7 +23,7 @@ public class TrainingSessionController {
   private final TrainingSessionReportBuilder trainingSessionReportBuilder;
 
   @PostMapping
-  public ResponseEntity<String> handleTrainingSessionEvent(
+  public ResponseEntity<String> createTrainingSessionEvent(
       @Valid @RequestBody TrainingSessionEvent event) {
     trainingSessionHandler.handle(event);
     return ResponseEntity.noContent().build();

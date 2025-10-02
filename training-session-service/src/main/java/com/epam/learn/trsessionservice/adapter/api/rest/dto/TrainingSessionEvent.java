@@ -14,7 +14,7 @@ public record TrainingSessionEvent(
     @NotBlank String trainerUsername,
     @NotBlank String trainerFirstName,
     @NotBlank String trainerLastName,
-    @NotNull Boolean isActive,
+    @NotNull Boolean trainerStatus,
     @NotNull @FutureOrPresent LocalDate trainingDate,
     @NotNull LocalTime trainingDuration,
     @NotNull @EnumNamePattern(regexp = "ADD|DELETE") ActionType actionType) {}

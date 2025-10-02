@@ -1,67 +1,41 @@
 package com.epam.learn.trsessionservice.adapter.spi.persistence;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Objects;
+import com.epam.learn.trsessionservice.domain.model.TrainingSessionYear;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.proxy.HibernateProxy;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Setter
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "training_sessions")
+@CompoundIndex(name = "first_last_idx", def = "{'trainer_first_name': 1, 'trainer_last_name': 1}")
+@Document(collection = "training_sessions")
 public class TrainingSessionEntity {
 
   @Id private Long id;
 
-  @Column(nullable = false)
+  @Indexed(unique = true)
+  @Field(name = "trainer_username")
   private String trainerUsername;
 
-  @Column private String trainerFirstName;
+  @Field(name = "trainer_first_name")
+  private String trainerFirstName;
 
-  @Column private String trainerLastName;
+  @Field(name = "trainer_last_name")
+  private String trainerLastName;
 
-  @Column(nullable = false)
-  private Boolean isActive;
+  @Field(name = "trainer_status")
+  private Boolean trainerStatus;
 
-  @Column(nullable = false)
-  private LocalDate trainingDate;
-
-  @Column(nullable = false)
-  private LocalTime trainingDuration;
-
-  @Override
-  public final boolean equals(Object other) {
-    if (this == other) return true;
-    if (other == null || this.getClass() != other.getClass()) return false;
-    Class<?> oEffectiveClass =
-        other instanceof HibernateProxy o
-            ? o.getHibernateLazyInitializer().getPersistentClass()
-            : other.getClass();
-    Class<?> thisEffectiveClass =
-        this instanceof HibernateProxy t
-            ? t.getHibernateLazyInitializer().getPersistentClass()
-            : this.getClass();
-    if (thisEffectiveClass != oEffectiveClass) return false;
-    TrainingSessionEntity that = (TrainingSessionEntity) other;
-    return getId() != null && Objects.equals(getId(), that.getId());
-  }
-
-  @Override
-  public final int hashCode() {
-    return this instanceof HibernateProxy t
-        ? t.getHibernateLazyInitializer().getPersistentClass().hashCode()
-        : getClass().hashCode();
-  }
+  private List<TrainingSessionYear> years;
 }

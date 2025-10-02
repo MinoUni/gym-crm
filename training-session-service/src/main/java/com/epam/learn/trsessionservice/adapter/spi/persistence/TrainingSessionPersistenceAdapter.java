@@ -3,7 +3,7 @@ package com.epam.learn.trsessionservice.adapter.spi.persistence;
 import com.epam.learn.trsessionservice.domain.model.TrainingSession;
 import com.epam.learn.trsessionservice.domain.repository.TrainingSessionRepository;
 import com.epam.learn.trsessionservice.infra.exception.TrainingSessionNotFoundException;
-import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,14 +11,17 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class TrainingSessionPersistenceAdapter implements TrainingSessionRepository {
 
-  private final JpaTrainingSessionRepository repository;
+  private final MongoTrainingSessionRepository repository;
   private final TrainingSessionMapper mapper;
 
   @Override
-  public List<TrainingSession> findAllByTrainerUsername(String trainerUsername) {
-    return repository.findAllByTrainerUsername(trainerUsername).stream()
-        .map(mapper::toDomain)
-        .toList();
+  public TrainingSession getByTrainerUsername(String trainerUsername) {
+    return mapper.toDomain(repository.getByTrainerUsername(trainerUsername));
+  }
+
+  @Override
+  public Optional<TrainingSession> findById(Long id) {
+    return repository.findById(id).map(mapper::toDomain);
   }
 
   @Override
