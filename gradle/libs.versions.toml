@@ -8,6 +8,7 @@ springBoot = "3.5.5"
 spring = "6.2.10"
 apacheCommonsLang3 = "3.18.0"
 springCloud = "2025.0.0"
+cucumber = "7.30.0"
 
 [libraries]
 springCloudStarterEurekaClient = { group = "org.springframework.cloud", name = "spring-cloud-starter-netflix-eureka-client" }
@@ -25,6 +26,9 @@ lombokMapstructBinding = { group = "org.projectlombok", name = "lombok-mapstruct
 hypersistenceUtils = { group = "io.hypersistence", name = "hypersistence-utils-hibernate-63", version.ref = "hypersistenceUtils" }
 datasourceProxySpringBootStarter = { group = "com.github.gavlyukovskiy", name = "datasource-proxy-spring-boot-starter", version.ref = "datasourceProxy" }
 apacheCommonsLang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apacheCommonsLang3" }
+cucumberSpring = { group = "io.cucumber", name = "cucumber-spring", version.ref = "cucumber" }
+cucumberJava = { group = "io.cucumber", name = "cucumber-java", version.ref = "cucumber" }
+cucumberJunit = { group = "io.cucumber", name = "cucumber-junit-platform-engine", version.ref = "cucumber" }
 
 [plugins]
 lombok = { id = "io.freefair.lombok", version = "8.14.2" }

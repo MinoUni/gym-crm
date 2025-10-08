@@ -37,8 +37,12 @@ dependencies {
 
     testImplementation(libs.springBootStarterTest)
     testImplementation(libs.springSecurityTest)
+    testImplementation(libs.cucumberJunit)
+    testImplementation(libs.cucumberSpring)
+    testImplementation(libs.cucumberJava)
+    testImplementation("io.rest-assured:rest-assured")
+    testImplementation("org.junit.platform:junit-platform-suite-api")
 
-    testRuntimeOnly("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -52,6 +56,7 @@ tasks.test {
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
     systemProperty("spring.profiles.active", "test")
     useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
 
 tasks.bootRun {
