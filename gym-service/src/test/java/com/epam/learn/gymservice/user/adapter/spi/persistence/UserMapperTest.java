@@ -18,14 +18,13 @@ class UserMapperTest {
   @DisplayName("<fullyUpdate> should properly map <TrainerUpdateRequest> into <User>")
   void test_fullyUpdate_shouldMapTrainer() {
     TrainerUpdateRequest parameters = new TrainerUpdateRequest("Duke", "Nuke", Boolean.TRUE, 1L);
-    User user = new User(1L, "Godard", "Loke", "Godard.Loke", "pass", false);
+    User user = new User(1L, "Godard", "Loke", "Godard.Loke", false);
     mapper.fullyUpdate(user, parameters);
 
     assertNotNull(user);
     assertEquals(parameters.firstName(), user.getFirstName());
     assertEquals(parameters.lastName(), user.getLastName());
     assertEquals("Godard.Loke", user.getUsername());
-    assertEquals("pass", user.getPassword());
     assertTrue(user.isActive());
   }
 
@@ -34,14 +33,13 @@ class UserMapperTest {
   void test_fullyUpdate_shouldMapTrainee() {
     TraineeUpdateRequest parameters =
         new TraineeUpdateRequest("Duke", "Nuke", null, null, Boolean.TRUE);
-    User user = new User(1L, "Godard", "Loke", "Godard.Loke", "pass", false);
+    User user = new User(1L, "Godard", "Loke", "Godard.Loke", false);
     mapper.fullyUpdate(user, parameters);
 
     assertNotNull(user);
     assertEquals(parameters.firstName(), user.getFirstName());
     assertEquals(parameters.lastName(), user.getLastName());
     assertEquals("Godard.Loke", user.getUsername());
-    assertEquals("pass", user.getPassword());
     assertTrue(user.isActive());
   }
 }

@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epam.learn.gymservice.infra.exception.EntityNotFoundException;
 import com.epam.learn.gymservice.infra.security.WebSecurityConfig;
-import com.epam.learn.gymservice.infra.security.jwt.JwtProvider;
 import com.epam.learn.gymservice.infra.security.web.JwtAuthenticationEntryPoint;
 import com.epam.learn.gymservice.trainee.adapter.api.rest.dto.TraineeCreateRequest;
 import com.epam.learn.gymservice.trainee.adapter.api.rest.dto.TraineeProfileResponse;
@@ -57,7 +56,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TraineeController.class)
-@Import({WebSecurityConfig.class, JwtProvider.class, JwtAuthenticationEntryPoint.class})
+@Import({WebSecurityConfig.class, JwtAuthenticationEntryPoint.class})
 class TraineeControllerTest {
 
   @MockitoBean private TraineeMapper mapper;
@@ -78,11 +77,11 @@ class TraineeControllerTest {
   void test_createTrainee_shouldCreateTrainee_with201StatusCode() throws Exception {
     TraineeCreateRequest request =
         new TraineeCreateRequest(
-            "John", "Doe", "password", LocalDate.now().minusDays(3), "Address");
+            "John", "Doe", LocalDate.now().minusDays(3), "Address");
     Trainee trainee = new Trainee();
     trainee.setUser(
         new User(
-            null, request.firstName(), request.lastName(), "John.Doe", request.password(), false));
+            null, request.firstName(), request.lastName(), "John.Doe", false));
 
     when(createTrainee.execute(any(TraineeCreateRequest.class))).thenReturn(trainee);
 
@@ -103,7 +102,7 @@ class TraineeControllerTest {
   @DisplayName("<createTrainee> should fail validation with <400 BAD_REQUEST>")
   void test_createTrainee_shouldFailValidation_with400StatusCode() throws Exception {
     TraineeCreateRequest request =
-        new TraineeCreateRequest(null, "  ", "password", LocalDate.now(), null);
+        new TraineeCreateRequest(null, "  ", LocalDate.now(), null);
 
     mockMvc
         .perform(
@@ -433,7 +432,7 @@ class TraineeControllerTest {
   void test_getAvailableTrainers_shouldReturnAvailableTrainers_with200StatusCode()
       throws Exception {
     String username = "Castorice";
-    User user = new User(1L, "Castorice", "Hades", username, "pass", true);
+    User user = new User(1L, "Castorice", "Hades", username, true);
     TrainingType trainingType = new TrainingType(1L, "Strength", List.of("1", "2", "3"));
     Trainer trainer = new Trainer(user, trainingType);
     var trainerProfile =
@@ -484,7 +483,7 @@ class TraineeControllerTest {
   void test_updateTraineeTrainers_shouldUpdateTraineeTrainerListWith200() throws Exception {
     String username = "Bob";
     List<String> trainerUsernames = List.of("Bob", "Sam");
-    User user = new User(1L, "Castorice", "Hades", username, "pass", true);
+    User user = new User(1L, "Castorice", "Hades", username, true);
     TrainingType trainingType = new TrainingType(1L, "Strength", List.of("1", "2", "3"));
     Trainer trainer = new Trainer(user, trainingType);
     var trainerProfile =

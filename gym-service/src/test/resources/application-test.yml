@@ -1,14 +1,22 @@
-jwt:
-  secret-key: 5a4d7f5bc3f7226e014c2ce8c9d3c01cd8c1d11def2022c3399a8e3cd642f047
-  lifetime: 5 # in minutes
+eureka:
+  client:
+    enabled: off
+    restclient:
+      enabled: on
+
 spring:
+  artemis:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    mode: native
   liquibase:
     enabled: false
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password: sa
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/gym-crm-test
+    username: postgres
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -18,6 +26,14 @@ spring:
         connection:
           provider_disables_autocommit: false
       defer-datasource-initialization: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: test-issuer
+  sql:
+    init:
+      mode: always
   h2:
     console:
       enabled: false

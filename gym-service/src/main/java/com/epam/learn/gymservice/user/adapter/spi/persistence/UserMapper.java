@@ -1,17 +1,16 @@
 package com.epam.learn.gymservice.user.adapter.spi.persistence;
 
+import com.epam.learn.gymservice.infra.mapper.MapperConfiguration;
+import com.epam.learn.gymservice.infra.mapper.UserMappings;
+import com.epam.learn.gymservice.infra.mapper.UserUpdateMappings;
+import com.epam.learn.gymservice.infra.utils.UsernameGeneratorUtils;
+import com.epam.learn.gymservice.user.domain.model.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-
-import com.epam.learn.gymservice.infra.mapper.MapperConfiguration;
-import com.epam.learn.gymservice.infra.mapper.UserMappings;
-import com.epam.learn.gymservice.infra.mapper.UserUpdateMappings;
-import com.epam.learn.gymservice.infra.utils.UsernameGeneratorUtils;
-import com.epam.learn.gymservice.user.domain.model.User;
 
 @Mapper(config = MapperConfiguration.class)
 public interface UserMapper {
@@ -30,7 +29,6 @@ public interface UserMapper {
   }
 
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "password", ignore = true)
   @Mapping(target = "lastName", expression = "java(parameters.lastName())")
   @Mapping(target = "firstName", expression = "java(parameters.firstName())")
   @Mapping(target = "username", source = ".", qualifiedByName = "generateUsername")
@@ -38,7 +36,6 @@ public interface UserMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "username", ignore = true)
-  @Mapping(target = "password", ignore = true)
   @Mapping(target = "firstName", expression = "java(parameters.firstName())")
   @Mapping(target = "lastName", expression = "java(parameters.lastName())")
   @Mapping(target = "active", source = "active")

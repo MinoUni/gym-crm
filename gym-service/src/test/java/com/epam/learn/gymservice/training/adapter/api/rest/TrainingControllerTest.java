@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.epam.learn.gymservice.infra.security.WebSecurityConfig;
-import com.epam.learn.gymservice.infra.security.jwt.JwtProvider;
 import com.epam.learn.gymservice.infra.security.web.JwtAuthenticationEntryPoint;
 import com.epam.learn.gymservice.training.adapter.api.rest.dto.TrainingCreateRequest;
 import com.epam.learn.gymservice.training.adapter.api.rest.dto.TrainingTypeResponse;
@@ -36,7 +35,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TrainingController.class)
-@Import({WebSecurityConfig.class, JwtProvider.class, JwtAuthenticationEntryPoint.class})
+@Import({WebSecurityConfig.class, JwtAuthenticationEntryPoint.class})
 class TrainingControllerTest {
 
   @Autowired private ObjectMapper jackson;

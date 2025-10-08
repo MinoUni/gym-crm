@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epam.learn.gymservice.infra.exception.EntityNotFoundException;
 import com.epam.learn.gymservice.infra.security.WebSecurityConfig;
-import com.epam.learn.gymservice.infra.security.jwt.JwtProvider;
 import com.epam.learn.gymservice.infra.security.web.JwtAuthenticationEntryPoint;
 import com.epam.learn.gymservice.trainer.adapter.api.rest.dto.TrainerCreateRequest;
 import com.epam.learn.gymservice.trainer.adapter.api.rest.dto.TrainerProfileResponse;
@@ -49,7 +48,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TrainerController.class)
-@Import({WebSecurityConfig.class, JwtProvider.class, JwtAuthenticationEntryPoint.class})
+@Import({WebSecurityConfig.class, JwtAuthenticationEntryPoint.class})
 class TrainerControllerTest {
 
   @MockitoBean private TrainerMapper mapper;
@@ -163,7 +162,7 @@ class TrainerControllerTest {
     TrainerCreateRequest request = new TrainerCreateRequest("John", "Doe", 1L);
     Trainer trainer = new Trainer();
     trainer.setUser(
-        new User(null, request.firstName(), request.lastName(), "John.Doe", "password", false));
+        new User(null, request.firstName(), request.lastName(), "John.Doe", false));
 
     when(createTrainer.execute(any(TrainerCreateRequest.class))).thenReturn(trainer);
 

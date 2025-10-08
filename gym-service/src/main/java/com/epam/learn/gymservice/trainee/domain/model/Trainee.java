@@ -70,14 +70,13 @@ public class Trainee {
       String firstName,
       String lastName,
       String username,
-      String password,
       boolean isActive,
       List<Training> trainings,
       Set<Trainer> trainers) {
     this.id = id;
     this.birthDate = birthDate;
     this.address = address;
-    this.user = new User(id, firstName, lastName, username, password, isActive);
+    this.user = new User(id, firstName, lastName, username, isActive);
     if (trainings != null) {
       trainings.forEach(this::addTraining);
     }

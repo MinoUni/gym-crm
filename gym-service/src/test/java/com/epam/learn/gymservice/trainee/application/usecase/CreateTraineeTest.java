@@ -34,7 +34,7 @@ class CreateTraineeTest {
   @Test
   void test_execute_shouldPersistTraineeEntity() {
     TraineeCreateRequest request =
-        new TraineeCreateRequest("John", "Doe", "password", LocalDate.now(), "Address");
+        new TraineeCreateRequest("John", "Doe", LocalDate.now(), "Address");
     Trainee trainee =
         new Trainee(
             null,
@@ -43,7 +43,6 @@ class CreateTraineeTest {
             request.firstName(),
             request.lastName(),
             "%s.%s".formatted(request.firstName(), request.lastName()),
-            null,
             false,
             List.of(),
             Set.of());
@@ -58,10 +57,8 @@ class CreateTraineeTest {
     assertEquals(request.firstName(), result.getUser().getFirstName());
     assertEquals(request.lastName(), result.getUser().getLastName());
     assertEquals("John.Doe", result.getUser().getUsername());
-    assertEquals("encodedPassword", result.getUser().getPassword());
 
     verify(mapper).toEntity(request);
-    verify(passwordEncoder).encode(request.password());
     verify(repository).save(trainee);
   }
 }

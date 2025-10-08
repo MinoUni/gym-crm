@@ -37,10 +37,6 @@ public class User {
   @Column(nullable = false, updatable = false)
   private String username;
 
-  @ToString.Exclude
-  @Column(nullable = false)
-  private String password;
-
   @Column(name = "active", nullable = false)
   private boolean isActive;
 
