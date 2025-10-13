@@ -10,4 +10,6 @@ public interface TrainingTypeRepository {
   TrainingType getReferenceById(Long id);
 
   boolean existsById(Long id);
+
+  TrainingType save(TrainingType trainingType);
 }

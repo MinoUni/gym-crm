@@ -4,7 +4,7 @@ Feature: Trainee Creation
   So that I can access training programs and track my progress
 
   Scenario Outline: Trainee Creation with various payloads
-    Given a new trainee JSON payload:
+    Given a JSON payload:
     """
     {
       "firstName": "<firstName>",

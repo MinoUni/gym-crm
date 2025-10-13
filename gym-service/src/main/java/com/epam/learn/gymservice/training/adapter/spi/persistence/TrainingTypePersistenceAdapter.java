@@ -26,4 +26,9 @@ public class TrainingTypePersistenceAdapter implements TrainingTypeRepository {
   public boolean existsById(Long id) {
     return repository.existsById(id);
   }
+
+  @Override
+  public TrainingType save(TrainingType trainingType) {
+    return repository.persist(trainingType);
+  }
 }
