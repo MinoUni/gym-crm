@@ -4,6 +4,7 @@ import com.epam.learn.trsessionservice.adapter.api.rest.dto.TrainerTrainingSessi
 import com.epam.learn.trsessionservice.domain.model.TrainingSession;
 import com.epam.learn.trsessionservice.domain.repository.TrainingSessionRepository;
 import com.epam.learn.trsessionservice.domain.service.TrainingSessionReportBuilder;
+import com.epam.learn.trsessionservice.infra.exception.TrainingSessionNotFoundException;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,9 @@ public class SessionReportBuilder implements TrainingSessionReportBuilder {
   @Override
   public TrainerTrainingSessionsReport build(String trainerUsername) {
     TrainingSession session = repository.getByTrainerUsername(trainerUsername);
+    if (session == null) {
+      throw new TrainingSessionNotFoundException(trainerUsername);
+    }
     if (session.getYears().isEmpty()) {
       throw new RuntimeException("No training sessions found for trainer: " + trainerUsername);
     }

@@ -10,6 +10,10 @@ logging:
     web: info
 
 spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@tr-sessions.pcdkpiz.mongodb.net
+      database: gym-crm
   artemis:
     broker-url: tcp://localhost:61616
     user: admin
