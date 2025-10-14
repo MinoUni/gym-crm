@@ -1,3 +1,7 @@
 rootProject.name = "gym-crm"
 
-include("training-session-service", "gym-service", "gateway", "discovery-server")
+include("cucumber-tests")
+include("discovery-server")
+include("gateway")
+include("gym-service")
+include("training-session-service")
