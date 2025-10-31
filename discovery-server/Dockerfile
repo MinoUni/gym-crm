@@ -1,4 +1,6 @@
-FROM bellsoft/liberica-openjre-debian:24-cds
+FROM bellsoft/liberica-openjdk-debian:24-cds AS build
+WORKDIR /app
+
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle.kts settings.gradle ./
@@ -10,8 +12,7 @@ RUN ./gradlew :discovery-server:bootJar --no-daemon
 FROM bellsoft/liberica-openjre-debian:24-cds AS builder
 WORKDIR /builder
 
-ARG JAR_FILE=discovery-server/build/libs/*.jar
-COPY ${JAR_FILE} application.jar
+COPY --from=build /app/discovery-server/build/libs/*.jar application.jar
 
 RUN java -Djarmode=tools -jar application.jar extract --layers --destination extracted
 
