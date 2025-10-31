@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("java")
     alias(libs.plugins.springBoot)
@@ -66,6 +68,10 @@ tasks.bootRun {
     }
     systemProperty("spring.profiles.active", "dev")
     environment(envVars)
+}
+
+tasks.named<BootJar>("bootJar") {
+    layered {}
 }
 
 fun loadEnvVars(file: File): Map<String, String> {

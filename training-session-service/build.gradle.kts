@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("java")
     alias(libs.plugins.springBoot)
@@ -38,4 +40,8 @@ dependencyManagement {
 tasks.test {
     jvmArgs("-javaagent:${mockitoAgent.asPath}")
     useJUnitPlatform()
+}
+
+tasks.named<BootJar>("bootJar") {
+    layered {}
 }

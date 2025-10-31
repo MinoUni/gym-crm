@@ -1,0 +1,110 @@
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - "postgres:/data/postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - gym-demo
+    restart: unless-stopped
+
+  keycloak:
+    container_name: keycloak-service
+    image: quay.io/keycloak/keycloak:26.4.2
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    networks:
+      - gym-demo
+    command:
+      - "start-dev"
+
+  artemis:
+    container_name: artemis
+    image: apache/activemq-artemis:latest-alpine
+    environment:
+      ARTEMIS_USER: admin
+      ARTEMIS_PASSWORD: admin
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    networks:
+      - gym-demo
+
+  discovery-server:
+    container_name: discovery-server
+    build:
+      context: .
+      dockerfile: discovery-server/Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - gym-demo
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8081:8081"
+    networks:
+      - gym-demo
+    depends_on:
+      - keycloak
+      - discovery-server
+
+  gym-service:
+    container_name: gym-service
+    build:
+      context: .
+      dockerfile: gym-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    env_file:
+      - path: gym-service/.env
+        required: true
+    ports:
+      - "8083:8083"
+    networks:
+      - gym-demo
+    depends_on:
+      - keycloak
+      - discovery-server
+      - postgresql
+
+  training-session-service:
+    container_name: training-session-service
+    build:
+      context: .
+      dockerfile: training-session-service/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    env_file:
+      - path: training-session-service/.env
+        required: true
+    ports:
+      - "8082:8082"
+    networks:
+      - gym-demo
+    depends_on:
+      - keycloak
+      - discovery-server
+#      - mongo-db if using non-cloud cluster
+
+networks:
+  gym-demo:
+    driver: bridge
+
+volumes:
+  postgres:
