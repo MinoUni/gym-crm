@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY gradlew .
 COPY gradle gradle
-COPY build.gradle.kts settings.gradle ./
+COPY build.gradle.kts settings.gradle.kts ./
 COPY discovery-server ./discovery-server
 
 RUN ./gradlew :discovery-server:bootJar --no-daemon
