@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("java")
     alias(libs.plugins.springBoot)
@@ -22,4 +24,8 @@ dependencyManagement {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.named<BootJar>("bootJar") {
+    layered {}
 }
