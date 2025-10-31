@@ -6,6 +6,7 @@ COPY gradle gradle
 COPY build.gradle.kts settings.gradle.kts ./
 COPY discovery-server ./discovery-server
 
+RUN chmod +x gradlew
 RUN ./gradlew :discovery-server:bootJar --no-daemon
 
 # Perform the extraction in a separate builder container
