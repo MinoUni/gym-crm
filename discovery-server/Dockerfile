@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN chmod +x gradlew
-RUN ./gradlew gym-crm:discovery-server:bootJar --no-daemon
+RUN ./gradlew :discovery-server:bootJar --no-daemon
 
 # Perform the extraction in a separate builder container
 FROM bellsoft/liberica-openjre-debian:24-cds AS builder
