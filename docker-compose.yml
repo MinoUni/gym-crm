@@ -1,6 +1,6 @@
 services:
-  postgresql:
-    container_name: postgresql
+  postgres:
+    container_name: postgres
     image: postgres
     environment:
       POSTGRES_DB: gymcrmDb
@@ -90,7 +90,8 @@ services:
     depends_on:
       - keycloak
       - discovery-server
-      - postgresql
+      - postgres
+      - artemis
 
   training-session-service:
     container_name: training-session-service
@@ -108,8 +109,9 @@ services:
       - gym-demo
     depends_on:
       - keycloak
-      - discovery-
+      - discovery-server
       - mongodb
+      - artemis
 
 networks:
   gym-demo:

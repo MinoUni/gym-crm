@@ -18,7 +18,7 @@ spring:
     ansi:
       enabled: ALWAYS
   datasource:
-    url: jdbc:postgresql://postgresql:5432/gymcrmDb
+    url: jdbc:postgresql://postgres:5432/gymcrmDb
     username: postgres
     password: password
   security:
