@@ -3,6 +3,7 @@ services:
     container_name: postgresql
     image: postgres
     environment:
+      POSTGRES_DB: gymcrmDb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
@@ -15,7 +16,7 @@ services:
     restart: unless-stopped
 
   keycloak:
-    container_name: keycloak-service
+    container_name: keycloak
     image: quay.io/keycloak/keycloak:26.4.2
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
@@ -26,6 +27,14 @@ services:
       - gym-demo
     command:
       - "start-dev"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    networks:
+      - gym-demo
 
   artemis:
     container_name: artemis
@@ -99,8 +108,8 @@ services:
       - gym-demo
     depends_on:
       - keycloak
-      - discovery-server
-#      - mongo-db if using non-cloud cluster
+      - discovery-
+      - mongodb
 
 networks:
   gym-demo:

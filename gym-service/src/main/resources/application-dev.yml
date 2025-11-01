@@ -10,7 +10,7 @@ logging:
     net.ttddyy.dsproxy.listener: info
 spring:
   artemis:
-    broker-url: tcp://localhost:61616
+    broker-url: tcp://artemis:61616
     user: admin
     password: admin
     mode: native
@@ -18,14 +18,14 @@ spring:
     ansi:
       enabled: ALWAYS
   datasource:
-    url: jdbc:postgresql://localhost:5432/gymcrmDb
+    url: jdbc:postgresql://postgresql:5432/gymcrmDb
     username: postgres
-    password: ${DB_PASSWORD}
+    password: password
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/gymcrm
+          issuer-uri: http://keycloak:8080/realms/gymcrm
 eureka:
   client:
     enabled: on
